@@ -8,25 +8,33 @@ document.addEventListener("DOMContentLoaded", function (){
     boardSquares.forEach(square => {
         square.classList.add("square");
     });
-  // Loop through each square and add click event listener
-    boardSquares.forEach ((square,index) => 
-    {
-        square.addEventListener("click",function ()
-    {
-        if (!gameState[index]) {
-            if (isXTurn) {
-                square.textContent = "X"; // Set X
-                square.classList.add("X"); // Add X class for styling
-                gameState[index] = "X"; // Update the game state
-            } else {
-                square.textContent = "O"; // Set O
-                square.classList.add("O"); // Add O class for styling
-                gameState[index] = "O"; // Update the game state
+     // Loop through each square and add click, mouseover, and mouseout event listeners
+     boardSquares.forEach((square, index) => {
+        // Handle square clicks
+        square.addEventListener("click", function () {
+            if (!gameState[index]) {
+                if (isXTurn) {
+                    square.textContent = "X";
+                    square.classList.add("X");
+                    gameState[index] = "X";
+                } else {
+                    square.textContent = "O";
+                    square.classList.add("O");
+                    gameState[index] = "O";
+                }
+                isXTurn = !isXTurn;
             }
-            
-            // Alternate the turn
-            isXTurn = !isXTurn;
-    }
-    })
-    })
+        });
+        // Handle mouseover (hover) event
+        square.addEventListener("mouseover", function () {
+            if (!gameState[index]) {
+                square.classList.add("hover"); // Apply hover effect only if the square is not clicked
+            }
+        });
+
+        // Handle mouseout event
+        square.addEventListener("mouseout", function () {
+            square.classList.remove("hover"); // Remove hover effect when the mouse leaves
+        });
+    });
 })
