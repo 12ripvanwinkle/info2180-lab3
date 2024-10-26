@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function (){
     // Get all div elements inside the board
     const boardSquares = document.querySelectorAll("#board div");
     const statusDiv = document.getElementById("status");
+    const newGameButton = document.querySelector(".btn");
     let isXTurn = true; //tracks turns (x goes 1st)
     let gameState = Array(9).fill(null); 
 
@@ -67,5 +68,20 @@ document.addEventListener("DOMContentLoaded", function (){
             square.classList.remove("hover"); // Remove hover effect when the mouse leaves
         });
     });
-    
+    // Handle New Game button click to reset the game
+    newGameButton.addEventListener("click", function () {
+        // Reset game state
+        gameState = Array(9).fill(null);
+        isXTurn = true;
+
+        // Clear the board
+        boardSquares.forEach(square => {
+            square.textContent = "";
+            square.classList.remove("X", "O", "hover");
+        });
+
+        // Reset the status message
+        statusDiv.textContent = "Move your mouse over a square and click to play an X or an O.";
+        statusDiv.classList.remove("you-won");
+    });
 })
